@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "IQRASH Beauty Salon"
+description = "A premium, responsive outreach website concept for IQRASH Beauty Salon in Latifabad, Hyderabad, with gallery interactions, contact links, and editable demo content."
+version = "1.0.0"
+id = "artifacts/iqrash-beauty-salon"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23567
+
+[services.development]
+run = "pnpm --filter @workspace/iqrash-beauty-salon run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/iqrash-beauty-salon", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/iqrash-beauty-salon/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23567"
+BASE_PATH = "/"
