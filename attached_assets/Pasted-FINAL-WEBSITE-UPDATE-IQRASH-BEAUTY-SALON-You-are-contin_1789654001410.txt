@@ -1,0 +1,465 @@
+FINAL WEBSITE UPDATE — IQRASH BEAUTY SALON
+
+You are continuing the existing IQRASH Beauty Salon website project. Update the current website according to the instructions below. Do not rebuild the entire project from scratch, and do not remove existing working features unless necessary.
+
+The goal is to create a premium, elegant, modern, responsive beauty salon website that looks professionally designed by a creative agency.
+
+1. HERO SECTION — FINAL HEADLINE
+
+Replace the current hero headline:
+
+"Beauty, with a point of view."
+
+With this exact headline:
+
+"A TOUCH OF BEAUTY."
+
+Do not change this headline to another phrase.
+
+Hero supporting content
+
+Eyebrow:
+IQRASH BEAUTY SALON
+
+Headline:
+A TOUCH OF BEAUTY.
+
+Supporting text:
+"Discover a refined beauty experience, thoughtfully created for your style, confidence, and special moments."
+
+Buttons:
+
+BOOK AN APPOINTMENT
+EXPLORE SERVICES
+Hero visual design
+Use the original uploaded IQRASH Beauty Salon logo.
+Keep the logo sharp, correctly proportioned, and professionally positioned.
+Use a stunning, relevant, high-quality beauty salon hero image.
+Prefer elegant hair styling, professional makeup, a premium salon interior, or a sophisticated beauty portrait.
+Use a tasteful dark overlay where needed for text readability.
+Create a premium editorial composition with strong typography and balanced whitespace.
+Do not use generic gradients or empty backgrounds as the main hero visual.
+Do not use unrelated images.
+Make the hero immediately communicate that this is a beauty salon.
+Hero animations
+
+Add:
+
+Smooth logo entrance.
+Elegant staggered text reveal.
+Subtle image reveal.
+Refined button hover effects.
+Subtle decorative line animation.
+Optional gentle image movement on scroll.
+
+Keep all animations smooth, premium, and performance-friendly. Respect prefers-reduced-motion.
+
+2. NAVBAR — ADD HOME BUTTON
+
+Update the existing navbar.
+
+The navbar must include these navigation items:
+
+HOME
+SERVICES
+ABOUT
+GALLERY
+CONTACT
+
+Add a clearly visible HOME button or navigation link.
+
+Navbar behavior
+HOME must scroll to the top of the homepage.
+Use smooth scrolling.
+The active navigation item should be visually distinguishable.
+Keep the navbar sticky while scrolling.
+Add a subtle background and shadow transition when the user scrolls.
+Keep the BOOK AN APPOINTMENT CTA on desktop.
+Use the original IQRASH logo.
+Do not allow the navbar to overlap or hide hero content.
+Mobile navbar
+Add a clean hamburger menu.
+Show HOME, SERVICES, ABOUT, GALLERY, and CONTACT.
+Animate the menu opening and closing smoothly.
+Close the menu after selecting a navigation item.
+Ensure all links are readable and touch-friendly.
+No horizontal overflow or overlapping content.
+3. REPLACE THE CURRENT "OUR POINT OF VIEW" SECTION
+
+The current section titled "OUR POINT OF VIEW" and its content do not fit the desired IQRASH Beauty Salon branding.
+
+Remove the following old content completely:
+
+OUR POINT OF VIEW
+Not more. More you.
+The existing paragraph associated with that section.
+Intimate
+Intentional
+Unhurried
+
+Replace the entire section with the following:
+
+New section content
+
+Eyebrow:
+THE IQRASH EXPERIENCE
+
+Main heading:
+BEAUTY, CARE,
+AND ATTENTION
+TO EVERY DETAIL.
+
+Supporting paragraph:
+"At IQRASH Beauty Salon, every visit is an opportunity to celebrate your individual style. Explore a beauty experience designed around you, from everyday self-care to your most special moments."
+
+Feature 01:
+PERSONALIZED
+"Beauty experiences that reflect your individual style."
+
+Feature 02:
+REFINED
+"Thoughtful details and an elegant salon atmosphere."
+
+Feature 03:
+FOR YOU
+"A moment to feel confident, comfortable, and cared for."
+
+This is proposed demo copy. Do not present it as an officially verified statement from the salon.
+
+New section design
+
+Create a premium editorial layout:
+
+Large, elegant heading on one side.
+Supporting paragraph on the other side.
+Three feature blocks underneath.
+Subtle dividers and refined typography.
+Balanced whitespace.
+A relevant, high-quality beauty image if it improves the design.
+Use the IQRASH brand palette: black, ivory, champagne gold, and restrained rose-red.
+Do not use a large empty maroon or plain-colored background with text floating in the center.
+Do not make the section excessively abstract.
+The section must feel warm, premium, and clearly related to beauty and self-care.
+
+On desktop, use a balanced two-column composition. On mobile, stack the content vertically with proper spacing.
+
+4. PROFESSIONAL SERVICES SECTION
+
+Create or improve the existing services section.
+
+Section eyebrow:
+OUR SERVICES
+
+Main heading:
+BEAUTY, YOUR WAY.
+
+Supporting text:
+"Explore a curated selection of beauty experiences designed around your individual style."
+
+Create six premium service cards:
+
+Hair Styling
+Hair Color & Treatments
+Makeup
+Skin Care
+Bridal Beauty
+Nails & Beauty Care
+
+These are proposed demo categories. Keep all service names and descriptions editable in one data file so they can be replaced with the salon's confirmed services later.
+
+Do not invent prices, packages, staff names, qualifications, or unsupported claims.
+
+Service card design
+
+Each card must include:
+
+A professional relevant image.
+Service number: 01, 02, 03, etc.
+Service name.
+Short elegant description.
+Refined arrow icon.
+Consistent typography and spacing.
+Beautiful visual hierarchy.
+Premium hover interaction.
+
+Use a sophisticated editorial grid rather than basic generic cards.
+
+Responsive layout
+
+Desktop:
+
+3-column grid or an elegant asymmetric editorial layout.
+
+Tablet:
+
+2-column grid.
+
+Mobile:
+
+1-column stacked cards.
+Easy-to-read text.
+Touch-friendly interactions.
+No horizontal scrolling.
+5. PROFESSIONAL RELEVANT IMAGES — HIGH PRIORITY
+
+Images are extremely important for this website.
+
+Do not use plain colored placeholders, unrelated images, low-quality stock photos, or broken image URLs.
+
+Use high-quality, properly licensed demo photography that matches a premium beauty salon aesthetic.
+
+Required image direction
+
+Hair Styling:
+Professional blowout, elegant haircut, or hairstylist working on hair.
+
+Hair Color & Treatments:
+Beautiful hair color, glossy styled hair, or professional hair coloring.
+
+Makeup:
+Professional makeup application or elegant beauty portrait.
+
+Skin Care:
+Professional facial skincare treatment or skincare consultation.
+
+Bridal Beauty:
+Elegant bridal makeup or refined bridal hairstyling.
+
+Nails & Beauty Care:
+Professional manicure, elegant nail styling, or beauty care close-up.
+
+Image rules
+Use relevant images for each service.
+Images must be sharp, high-quality, and professionally composed.
+Maintain consistent lighting and color grading.
+Avoid unrelated beauty categories.
+Avoid distorted AI-looking faces.
+Avoid watermarks and unrelated brand logos.
+Do not copy images from Hifsa Khan Salon or any other salon website.
+Use properly licensed demo images from legitimate sources.
+Do not present stock models as IQRASH customers or staff.
+Add meaningful alt text to every image.
+Use lazy loading for below-the-fold images.
+Optimize images for fast loading.
+Keep all image URLs in one editable data file.
+Add graceful fallbacks for failed images.
+Verify that all image URLs actually load before finishing.
+
+If reliable image URLs cannot be obtained, use clearly marked demo placeholders that can be replaced later. Never leave broken image icons on the website.
+
+6. SERVICE CARD HOVER ANIMATIONS
+
+Add polished and subtle interactions.
+
+On desktop hover:
+
+Image zooms in slightly.
+A refined overlay appears.
+Service title moves gently.
+Arrow icon moves slightly to the right.
+Border or background transitions smoothly.
+Use professional easing and animation duration.
+
+On mobile:
+
+Do not depend on hover.
+Cards must remain readable and usable through tapping.
+No essential information should be hidden only behind hover.
+
+Avoid excessive bouncing, spinning, flashing, or distracting effects.
+
+Respect prefers-reduced-motion.
+
+7. SERVICE DETAIL INTERACTION
+
+When a service card is clicked, open a polished detail modal or expandable panel.
+
+The detail view must include:
+
+Large service image.
+Service name.
+Editable description.
+INQUIRE ABOUT THIS SERVICE button.
+Accessible close button.
+Mobile-friendly layout.
+Keyboard-accessible interaction.
+
+The inquiry button should open WhatsApp with a prefilled message:
+
+"Hello IQRASH Beauty Salon, I would like to inquire about [SERVICE NAME]. Please share the available details and appointment timings. Thank you."
+
+Do not claim that an appointment has been automatically confirmed.
+
+8. GOOGLE MAPS — MUST BE ADDED
+
+Add a premium contact and location section near the bottom of the homepage, above the footer.
+
+Section heading
+
+FIND US
+
+Main heading:
+VISIT IQRASH BEAUTY SALON
+
+Supporting text:
+"Find us in Latifabad Unit 6, Hyderabad. Connect with IQRASH Beauty Salon to discuss your next appointment."
+
+This is proposed demo copy.
+
+Business information
+
+Business name:
+IQRASH Beauty Salon
+
+Address:
+E, Bungalow #157/A, Block-E, Unit 6, Latifabad Road, Sector Latifabad, Hyderabad, 71800, Pakistan
+
+Phone:
+03329990159
+
+Google Maps link:
+https://maps.app.goo.gl/E7mPnb3njFCTEryM8
+
+Google Maps embed
+
+Use this exact iframe:
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14420.4770183497!2d68.3287938554199!3d25.367319400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c713a6165a977%3A0xe97064bd8c82dc9e!2sIQRASH%20Beauty%20Salon!5e0!3m2!1sen!2s!4v1789651537658!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+Map section layout
+
+Desktop:
+
+Left side: address, phone, opening hours, and CTA buttons.
+Right side: responsive Google Maps embed.
+
+Mobile:
+
+Stack contact details above the map.
+Map width must be 100%.
+No horizontal scrolling.
+Rounded corners and proper spacing.
+The map must remain usable on small screens.
+Buttons
+
+GET DIRECTIONS:
+Open the supplied Google Maps link.
+
+BOOK VIA WHATSAPP:
+Open WhatsApp using the salon's phone number.
+
+Phone button:
+Use tel:+923329990159.
+
+WhatsApp international number:
+923329990159
+
+Prefilled WhatsApp message:
+"Hello IQRASH Beauty Salon, I would like to inquire about an appointment. Please share your available timings and services. Thank you."
+
+Do not claim that the booking is automatically confirmed.
+
+Opening hours
+
+Use an editable opening-hours field. Do not present unconfirmed hours as verified business information.
+
+9. KEEP THE EXISTING WEBSITE FEATURES
+
+Do not remove the following working sections or functionality:
+
+Premium hero section.
+Introduction/about section.
+Services section.
+Beauty portfolio gallery.
+Bridal beauty section.
+Reviews section.
+Appointment CTA.
+Contact section.
+Footer.
+Original IQRASH logo.
+Social media links.
+Existing animations and responsive behavior.
+
+Improve their visual consistency where necessary.
+
+10. DESIGN SYSTEM
+
+Maintain a premium beauty salon identity:
+
+Black.
+Ivory.
+Champagne gold.
+Restrained rose-red accent.
+Elegant serif display typography.
+Clean modern body typography.
+Refined spacing.
+Professional image compositions.
+Subtle borders and decorative details.
+
+Avoid:
+
+Excessive gold.
+Neon colors.
+Cheap-looking gradients.
+Overly large empty spaces.
+Generic AI template layouts.
+Excessive animations.
+Unnecessary text.
+Poorly aligned sections.
+
+The final design should feel luxurious, feminine, modern, and professional.
+
+11. RESPONSIVE DESIGN
+
+Test and optimize the website for:
+
+320px.
+375px.
+390px.
+414px.
+768px.
+1024px.
+1280px.
+1440px.
+
+Requirements:
+
+No horizontal scrolling.
+No clipped text.
+No overlapping elements.
+No oversized logo.
+Readable typography.
+Touch-friendly buttons.
+Properly stacked mobile sections.
+Responsive gallery and service cards.
+Responsive Google Maps.
+Mobile navigation works correctly.
+Hero remains visually attractive on every screen size.
+12. FINAL QUALITY CONTROL
+
+After making all changes:
+
+Run the website.
+Verify the hero headline is exactly "A TOUCH OF BEAUTY."
+Verify the old "Our Point of View" content has been removed.
+Verify the new "The IQRASH Experience" section is visible and polished.
+Verify HOME is present in the navbar and scrolls to the top.
+Verify all navbar links work.
+Verify all six service cards display relevant professional images.
+Verify service hover animations work.
+Verify service detail interactions work.
+Verify the Google Maps iframe loads correctly.
+Verify GET DIRECTIONS opens the correct Maps link.
+Verify WhatsApp and phone buttons work.
+Verify Facebook and Instagram links work.
+Check all images for broken URLs.
+Test mobile, tablet, and desktop layouts.
+Check for horizontal overflow.
+Check the mobile menu.
+Check the gallery lightbox.
+Check reduced-motion behavior.
+Remove console errors.
+Ensure the website looks polished after refreshing the page.
+Ensure the final result is suitable for sending as a professional Trenex Agency outreach demo.
+
+Do not stop at a rough implementation. Complete and polish the website.

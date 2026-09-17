@@ -20,6 +20,8 @@ function App() {
   const [activeImage, setActiveImage] = useState<GalleryImage | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeService, setActiveService] = useState<(typeof site.services)[number] | null>(null);
+  const [activeSection, setActiveSection] = useState('top');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal');
@@ -29,6 +31,26 @@ function App() {
     );
     elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateNavigation = () => {
+      const threshold = window.scrollY + 160;
+      const sectionIds = ['top', 'services', 'about', 'gallery', 'contact'];
+      let currentSection = 'top';
+
+      sectionIds.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section && section.offsetTop <= threshold) currentSection = sectionId;
+      });
+
+      setActiveSection(currentSection);
+      setScrolled(window.scrollY > 18);
+    };
+
+    updateNavigation();
+    window.addEventListener('scroll', updateNavigation, { passive: true });
+    return () => window.removeEventListener('scroll', updateNavigation);
   }, []);
 
   useEffect(() => {
@@ -60,13 +82,14 @@ function App() {
   };
 
   const serviceInquiryHref = (serviceTitle: string) =>
-    `https://wa.me/923329990159?text=${encodeURIComponent(`Hello IQRASH Beauty Salon, I would like to inquire about your ${serviceTitle}. Please share the available details and appointment timings. Thank you.`)}`;
+    `https://wa.me/923329990159?text=${encodeURIComponent(`Hello IQRASH Beauty Salon, I would like to inquire about ${serviceTitle}. Please share the available details and appointment timings. Thank you.`)}`;
 
   const navItems = [
-    { href: '#story', label: 'Our point of view' },
-    { href: '#services', label: 'The edit' },
+    { href: '#top', label: 'Home' },
+    { href: '#services', label: 'Services' },
+    { href: '#about', label: 'About' },
     { href: '#gallery', label: 'Gallery' },
-    { href: '#contact', label: 'Visit' },
+    { href: '#contact', label: 'Contact' },
   ];
 
   return (
@@ -76,7 +99,7 @@ function App() {
         A proposed digital home for IQRASH Beauty Salon · Trenex Agency demo
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/90 backdrop-blur-md">
+      <header className={`sticky top-0 z-40 border-b border-foreground/10 bg-background/90 backdrop-blur-md transition-shadow duration-500 ${scrolled ? 'shadow-[0_12px_30px_rgba(63,18,34,.10)]' : ''}`}>
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-5 md:px-10">
           <a href="#top" className="flex items-center gap-3" data-testid="link-logo">
             <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-primary">
@@ -85,7 +108,7 @@ function App() {
             <span className="hidden text-[11px] font-bold uppercase tracking-[0.16em] text-primary sm:block">IQRASH<br /><span className="font-normal tracking-[0.12em] text-muted-foreground">Beauty Salon</span></span>
           </a>
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
-            {navItems.map((item) => <a key={item.href} href={item.href} className="text-[11px] font-bold uppercase tracking-[0.16em] text-foreground/70 transition-colors hover:text-primary" data-testid={`link-nav-${item.href.slice(1)}`}>{item.label}</a>)}
+            {navItems.map((item) => <a key={item.href} href={item.href} aria-current={activeSection === item.href.slice(1) ? 'page' : undefined} className={`relative text-[11px] font-bold uppercase tracking-[0.16em] transition-colors after:absolute after:-bottom-2 after:left-0 after:h-px after:bg-accent after:transition-all ${activeSection === item.href.slice(1) ? 'text-primary after:w-full' : 'text-foreground/70 after:w-0 hover:text-primary hover:after:w-full'}`} data-testid={`link-nav-${item.href.slice(1)}`}>{item.label}</a>)}
           </nav>
           <div className="flex items-center gap-2">
             <a href={site.whatsappHref} target="_blank" rel="noreferrer" className="hidden items-center gap-2 border border-primary px-4 py-3 text-[10px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground sm:flex" data-testid="link-header-whatsapp">
@@ -96,23 +119,21 @@ function App() {
             </button>
           </div>
         </div>
-        {menuOpen && (
-          <nav className="border-t border-foreground/10 bg-background px-5 py-5 md:hidden" aria-label="Mobile navigation">
-            {navItems.map((item) => <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className="block border-b border-foreground/10 py-4 text-xs font-bold uppercase tracking-[0.18em] text-primary" data-testid={`link-mobile-${item.href.slice(1)}`}>{item.label}</a>)}
-            <a href={site.whatsappHref} target="_blank" rel="noreferrer" className="mt-5 flex w-full items-center justify-center gap-2 bg-primary px-4 py-4 text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground" data-testid="link-mobile-whatsapp"><MessageCircle size={15} /> Start an enquiry</a>
-          </nav>
-        )}
+        <nav className={`overflow-hidden border-t border-foreground/10 bg-background px-5 transition-[max-height,opacity,padding] duration-300 md:hidden ${menuOpen ? 'max-h-[420px] py-5 opacity-100' : 'pointer-events-none invisible max-h-0 py-0 opacity-0'}`} aria-label="Mobile navigation" aria-hidden={!menuOpen}>
+          {navItems.map((item) => <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)} aria-current={activeSection === item.href.slice(1) ? 'page' : undefined} className={`block border-b border-foreground/10 py-4 text-xs font-bold uppercase tracking-[0.18em] transition-colors ${activeSection === item.href.slice(1) ? 'text-accent' : 'text-primary hover:text-accent'}`} data-testid={`link-mobile-${item.href.slice(1)}`}>{item.label}</a>)}
+          <a href={site.whatsappHref} target="_blank" rel="noreferrer" className="mt-5 flex w-full items-center justify-center gap-2 bg-primary px-4 py-4 text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground" data-testid="link-mobile-whatsapp"><MessageCircle size={15} /> Start an enquiry</a>
+        </nav>
       </header>
 
       <section id="top" className="editorial-grid relative overflow-hidden px-5 pb-16 pt-12 md:px-10 md:pb-24 md:pt-20">
         <div className="mx-auto grid max-w-[1440px] items-end gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <div className="relative z-10 reveal">
-            <p className="mb-7 flex items-center gap-3 font-mono-ui text-[10px] font-bold uppercase tracking-[0.18em] text-accent"><span className="h-px w-9 bg-accent" /> Latifabad · Hyderabad</p>
-            <h1 className="max-w-[760px] font-display text-[clamp(4.3rem,11vw,10.5rem)] leading-[0.78] tracking-[-0.055em] text-primary">Beauty,<br /><em>with a point</em><br />of view.</h1>
-            <p className="mt-9 max-w-[390px] text-[15px] leading-7 text-foreground/70">A proposed digital home for IQRASH Beauty Salon — an intimate place for polished hair, skin-led makeup and the moments that call for a little more.</p>
+            <p className="mb-7 flex items-center gap-3 font-mono-ui text-[10px] font-bold uppercase tracking-[0.18em] text-accent"><span className="h-px w-9 bg-accent" /> IQRASH BEAUTY SALON</p>
+            <h1 className="max-w-[760px] font-display text-[clamp(4.8rem,12vw,11rem)] leading-[0.78] tracking-[-0.055em] text-primary">A TOUCH<br /><em>OF BEAUTY.</em></h1>
+            <p className="mt-9 max-w-[430px] text-[15px] leading-7 text-foreground/70">Discover a refined beauty experience, thoughtfully created for your style, confidence, and special moments.</p>
             <div className="mt-10 flex flex-wrap items-center gap-5">
-              <a href="#services" className="group flex items-center gap-3 bg-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary-foreground" data-testid="link-hero-explore">Explore the edit <ArrowDownRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:translate-y-1" /></a>
-              <a href={site.phoneHref} className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-primary" data-testid="link-hero-phone"><Phone size={14} strokeWidth={1.7} /> {site.phoneDisplay}</a>
+              <a href={site.whatsappHref} target="_blank" rel="noreferrer" className="group flex items-center gap-3 bg-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary-foreground" data-testid="link-hero-appointment">Book an appointment <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>
+              <a href="#services" className="group flex items-center gap-3 border border-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground" data-testid="link-hero-explore">Explore services <ArrowDownRight size={15} className="transition-transform group-hover:translate-x-1 group-hover:translate-y-1" /></a>
             </div>
           </div>
           <div className="relative reveal reveal-delay-1">
@@ -124,18 +145,27 @@ function App() {
             <span className="absolute -right-2 top-8 font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary/60 [writing-mode:vertical-rl] md:-right-8">IQRASH / 01</span>
           </div>
         </div>
-        <a href="#story" className="mx-auto mt-16 flex max-w-[1440px] items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60" data-testid="link-scroll-story"><span className="h-px w-10 bg-accent" /> Scroll to enter</a>
+        <a href="#about" className="mx-auto mt-16 flex max-w-[1440px] items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-primary/60" data-testid="link-scroll-about"><span className="h-px w-10 bg-accent" /> Scroll to enter</a>
       </section>
 
-      <section id="story" className="bg-primary px-5 py-20 text-primary-foreground md:px-10 md:py-28">
-        <div className="mx-auto grid max-w-[1180px] gap-14 md:grid-cols-[0.7fr_1.3fr] md:gap-24">
-          <div className="reveal"><p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-accent">01 / The feeling</p><div className="mt-14 h-px w-20 bg-accent/70" /></div>
-          <div className="reveal reveal-delay-1">
-            <h2 className="max-w-[830px] font-display text-[clamp(3rem,7vw,7.3rem)] leading-[0.88] tracking-[-0.04em]">Not more. <em>More you.</em></h2>
-            <p className="mt-10 max-w-[600px] text-lg leading-8 text-primary-foreground/70">Beauty here is not a before-and-after. It is a pause, a conversation, the right light and the last small detail that makes the whole look feel like yours.</p>
-            <div className="mt-12 grid gap-7 border-t border-primary-foreground/20 pt-7 sm:grid-cols-3">
-              {['Intimate', 'Intentional', 'Unhurried'].map((word, index) => <div key={word}><p className="font-display text-3xl italic text-accent">{word}</p><p className="mt-2 font-mono-ui text-[9px] uppercase tracking-[0.17em] text-primary-foreground/50">The IQRASH edit · 0{index + 1}</p></div>)}
+      <section id="about" className="bg-secondary/45 px-5 py-20 md:px-10 md:py-28">
+        <div className="mx-auto max-w-[1180px]">
+          <div className="grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:items-end md:gap-20">
+            <div className="reveal">
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-accent">01 / The IQRASH experience</p>
+              <h2 className="mt-6 max-w-[600px] font-display text-6xl leading-[0.86] tracking-[-0.04em] text-primary md:text-[6.5rem]">Beauty, care,<br /><em>and attention</em><br />to every detail.</h2>
             </div>
+            <div className="reveal reveal-delay-1">
+              <p className="max-w-[520px] text-lg leading-8 text-foreground/70">At IQRASH Beauty Salon, every visit is an opportunity to celebrate your individual style. Explore a beauty experience designed around you, from everyday self-care to your most special moments.</p>
+              <p className="mt-6 font-mono-ui text-[9px] uppercase tracking-[0.17em] text-muted-foreground">Proposed demo copy · confirm directly with the salon</p>
+            </div>
+          </div>
+          <div className="mt-14 grid gap-px border-t border-primary/20 bg-primary/20 sm:grid-cols-3">
+            {[
+              ['Personalized', 'Beauty experiences that reflect your individual style.'],
+              ['Refined', 'Thoughtful details and an elegant salon atmosphere.'],
+              ['For you', 'A moment to feel confident, comfortable, and cared for.'],
+            ].map(([title, text], index) => <div key={title} className="reveal bg-background p-7 md:p-9"><p className="font-mono-ui text-[9px] uppercase tracking-[0.18em] text-accent">0{index + 1}</p><p className="mt-9 font-display text-3xl uppercase text-primary">{title}</p><p className="mt-4 max-w-[250px] text-sm leading-6 text-muted-foreground">{text}</p></div>)}
           </div>
         </div>
       </section>
@@ -143,7 +173,7 @@ function App() {
       <section id="services" className="px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1440px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="reveal"><p className="font-mono-ui text-[10px] font-bold uppercase tracking-[0.2em] text-accent">02 / The edit</p><h2 className="mt-5 font-display text-6xl leading-none tracking-[-0.04em] text-primary md:text-8xl">Beauty,<br /><em>your way.</em></h2></div>
+            <div className="reveal"><p className="font-mono-ui text-[10px] font-bold uppercase tracking-[0.2em] text-accent">02 / Our services</p><h2 className="mt-5 font-display text-6xl leading-none tracking-[-0.04em] text-primary md:text-8xl">Beauty,<br /><em>your way.</em></h2></div>
             <p className="max-w-[360px] text-xs leading-6 text-muted-foreground reveal reveal-delay-1">Explore a curated selection of beauty experiences designed around your individual style. Proposed demo categories — please confirm the salon’s current services and availability directly with IQRASH.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
