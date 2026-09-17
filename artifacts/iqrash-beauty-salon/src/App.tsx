@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, ChevronLeft, ChevronRight, Clock3, ExternalLink, Facebook, Heart, Instagram, MapPin, Menu, MessageCircle, Navigation, Phone, Sparkles, X } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, ChevronLeft, ChevronRight, Clock3, ExternalLink, Facebook, Heart, Instagram, MapPin, Menu, MessageCircle, Phone, Sparkles, X } from 'lucide-react';
 import { site, type GalleryImage } from '@/data/site';
 
 function SmartImage({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
@@ -19,6 +19,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeImage, setActiveImage] = useState<GalleryImage | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [activeService, setActiveService] = useState<(typeof site.services)[number] | null>(null);
 
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal');
@@ -31,11 +32,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!activeImage) return;
+    if (!activeImage && !activeService) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setActiveImage(null);
-      if (event.key === 'ArrowRight') openImage((activeIndex + 1) % site.images.length);
-      if (event.key === 'ArrowLeft') openImage((activeIndex - 1 + site.images.length) % site.images.length);
+      if (event.key === 'Escape') {
+        setActiveImage(null);
+        setActiveService(null);
+      }
+      if (activeImage && event.key === 'ArrowRight') openImage((activeIndex + 1) % site.images.length);
+      if (activeImage && event.key === 'ArrowLeft') openImage((activeIndex - 1 + site.images.length) % site.images.length);
     };
     window.addEventListener('keydown', onKeyDown);
     document.body.style.overflow = 'hidden';
@@ -43,12 +47,20 @@ function App() {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
     };
-  }, [activeImage, activeIndex]);
+  }, [activeImage, activeIndex, activeService]);
 
   const openImage = (index: number) => {
     setActiveIndex(index);
     setActiveImage(site.images[index]);
   };
+
+  const openService = (service: (typeof site.services)[number]) => {
+    setActiveService(service);
+    setMenuOpen(false);
+  };
+
+  const serviceInquiryHref = (serviceTitle: string) =>
+    `https://wa.me/923329990159?text=${encodeURIComponent(`Hello IQRASH Beauty Salon, I would like to inquire about your ${serviceTitle}. Please share the available details and appointment timings. Thank you.`)}`;
 
   const navItems = [
     { href: '#story', label: 'Our point of view' },
@@ -131,15 +143,36 @@ function App() {
       <section id="services" className="px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1440px]">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div className="reveal"><p className="font-mono-ui text-[10px] font-bold uppercase tracking-[0.2em] text-accent">02 / The edit</p><h2 className="mt-5 font-display text-6xl leading-none tracking-[-0.04em] text-primary md:text-8xl">Your look,<br /><em>edited.</em></h2></div>
-            <p className="max-w-[290px] text-xs leading-6 text-muted-foreground reveal reveal-delay-1">A proposed selection for the salon’s digital menu. Please confirm current services and availability directly with the salon.</p>
+            <div className="reveal"><p className="font-mono-ui text-[10px] font-bold uppercase tracking-[0.2em] text-accent">02 / The edit</p><h2 className="mt-5 font-display text-6xl leading-none tracking-[-0.04em] text-primary md:text-8xl">Beauty,<br /><em>your way.</em></h2></div>
+            <p className="max-w-[360px] text-xs leading-6 text-muted-foreground reveal reveal-delay-1">Explore a curated selection of beauty experiences designed around your individual style. Proposed demo categories — please confirm the salon’s current services and availability directly with IQRASH.</p>
           </div>
-          <div className="border-t border-primary/20">
-            {site.services.map((service, index) => <article key={service.number} className="reveal group grid gap-5 border-b border-primary/20 py-7 transition-colors hover:bg-secondary/30 md:grid-cols-[100px_1fr_1.1fr_150px] md:items-center md:gap-8">
-              <span className="font-mono-ui text-xs text-accent">{service.number}</span><h3 className="font-display text-4xl text-primary md:text-5xl">{service.title}</h3><p className="max-w-[380px] text-sm leading-6 text-muted-foreground">{service.text}</p><span className="font-mono-ui text-[9px] uppercase tracking-[0.1em] text-muted-foreground/70">{service.note}</span>
-            </article>)}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
+            {site.services.map((service, index) => {
+              const wideCard = index === 0 || index === 3;
+              return (
+                <button
+                  key={service.number}
+                  type="button"
+                  onClick={() => openService(service)}
+                  className={`reveal group relative min-h-[360px] overflow-hidden bg-primary text-left ${wideCard ? 'lg:col-span-7' : 'lg:col-span-5'} ${index === 1 || index === 4 ? 'lg:translate-y-12' : ''}`}
+                  aria-label={`View details for ${service.title}`}
+                  data-testid={`button-service-${service.number}`}
+                >
+                  <SmartImage src={service.image} alt={service.alt} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-primary via-primary/35 to-primary/5 transition-colors duration-500 group-hover:bg-primary/55" />
+                  <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-6 md:p-8">
+                    <span>
+                      <span className="font-mono-ui text-[10px] font-bold uppercase tracking-[0.17em] text-accent">{service.number} · {service.note}</span>
+                      <span className="mt-3 block font-display text-4xl leading-none text-primary-foreground transition-transform duration-500 group-hover:-translate-y-1 md:text-5xl">{service.title}</span>
+                      <span className="mt-3 block max-w-[390px] text-sm leading-6 text-primary-foreground/75">{service.text}</span>
+                    </span>
+                    <span className="mb-1 shrink-0 rounded-full border border-primary-foreground/50 p-3 text-primary-foreground transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true"><ArrowUpRight size={17} /></span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
-          <div className="mt-9 flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.17em] text-primary"><span className="h-px w-12 bg-accent" /> Menu details are intentionally open for confirmation</div>
+          <div className="mt-16 flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.17em] text-primary"><span className="h-px w-12 bg-accent" /> Select a category to view the proposed service detail</div>
         </div>
       </section>
 
@@ -196,9 +229,34 @@ function App() {
       </section>
 
       <section id="contact" className="border-t border-primary/20 px-5 py-20 md:px-10 md:py-28">
-        <div className="mx-auto grid max-w-[1440px] gap-14 md:grid-cols-[0.8fr_1fr] md:gap-20">
-          <div className="reveal"><p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-accent">05 / Find your way</p><h2 className="mt-5 font-display text-6xl leading-[0.88] text-primary md:text-8xl">Come<br /><em>say hello.</em></h2><div className="mt-12 space-y-6"><a href={site.phoneHref} className="flex items-start gap-4 text-sm text-primary" data-testid="link-contact-phone"><Phone size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Call the salon</strong><span className="mt-1 block text-muted-foreground">{site.phoneDisplay}</span></span></a><a href={site.mapHref} target="_blank" rel="noreferrer" className="flex items-start gap-4 text-sm text-primary" data-testid="link-contact-map"><MapPin size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Find us</strong><span className="mt-1 block max-w-[290px] leading-6 text-muted-foreground">{site.address}</span></span></a><div className="flex items-start gap-4 text-sm text-primary"><Clock3 size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Proposed hours · confirm directly</strong><span className="mt-1 block text-muted-foreground">{site.proposedHours}</span></span></div></div></div>
-          <div className="reveal reveal-delay-1"><div className="editorial-grid relative flex min-h-[380px] flex-col justify-between overflow-hidden border border-primary/20 bg-secondary/45 p-6 md:min-h-[480px] md:p-9"><div className="flex items-start justify-between"><span className="flex items-center gap-2 font-mono-ui text-[9px] uppercase tracking-[0.17em] text-primary"><span className="h-2 w-2 rounded-full bg-accent" /> Latifabad Unit 6</span><Navigation size={20} className="text-accent" strokeWidth={1.3} /></div><div className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full border border-accent/50"><div className="absolute h-28 w-28 rounded-full border border-primary/25" /><div className="absolute h-2 w-2 rounded-full bg-accent shadow-[0_0_0_9px_hsl(var(--accent)/.14)]" /><span className="absolute bottom-[-28px] font-mono-ui text-[9px] uppercase tracking-[0.15em] text-primary">E, Bungalow #157/A</span></div><a href={site.mapHref} target="_blank" rel="noreferrer" className="flex items-center justify-between border-t border-primary/20 pt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-primary" data-testid="link-open-map">Open in Google Maps <ExternalLink size={14} /></a></div></div>
+        <div className="mx-auto grid max-w-[1440px] gap-10 md:grid-cols-[0.82fr_1.18fr] md:gap-16">
+          <div className="reveal">
+            <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-accent">05 / Find us</p>
+            <h2 className="mt-5 font-display text-6xl leading-[0.88] text-primary md:text-8xl">Visit<br /><em>IQRASH.</em></h2>
+            <p className="mt-8 max-w-[420px] text-sm leading-7 text-muted-foreground">Find a considered beauty moment in Latifabad Unit 6. The hours below are proposed for this concept and should be confirmed directly with the salon.</p>
+            <div className="mt-10 space-y-6">
+              <div className="flex items-start gap-4 text-sm text-primary"><MapPin size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Address</strong><span className="mt-1 block max-w-[360px] leading-6 text-muted-foreground">{site.address}</span></span></div>
+              <a href={site.phoneHref} className="flex items-start gap-4 text-sm text-primary transition-colors hover:text-accent" data-testid="link-contact-phone"><Phone size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Call the salon</strong><span className="mt-1 block text-muted-foreground">{site.phoneDisplay}</span></span></a>
+              <div className="flex items-start gap-4 text-sm text-primary"><Clock3 size={18} className="mt-0.5 text-accent" strokeWidth={1.5} /><span><strong className="block text-[10px] uppercase tracking-[0.15em]">Proposed hours · confirm directly</strong><span className="mt-1 block text-muted-foreground">{site.proposedHours}</span></span></div>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <a href={site.mapHref} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 bg-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-accent hover:text-primary" data-testid="link-get-directions">Get directions <ExternalLink size={14} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>
+              <a href={site.whatsappHref} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 border border-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground" data-testid="link-contact-whatsapp">Book via WhatsApp <MessageCircle size={14} className="transition-transform group-hover:translate-x-1" /></a>
+            </div>
+          </div>
+          <div className="reveal reveal-delay-1 overflow-hidden rounded-[2px] border border-primary/20 bg-secondary/45 p-2 shadow-[0_22px_55px_rgba(63,18,34,.12)]">
+            <iframe
+              src={site.mapEmbedSrc}
+              title="Google Maps location for IQRASH Beauty Salon"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="block h-[380px] w-full border-0 md:h-[520px]"
+            />
+          </div>
         </div>
       </section>
 
@@ -209,6 +267,7 @@ function App() {
         </div>
       </footer>
 
+      {activeService && <div className="fixed inset-0 z-[60] flex items-center justify-center bg-primary/90 p-5 backdrop-blur-sm md:p-10" role="dialog" aria-modal="true" aria-labelledby="service-dialog-title" onClick={() => setActiveService(null)}><button type="button" onClick={() => setActiveService(null)} aria-label="Close service details" className="absolute right-5 top-5 rounded-full border border-primary-foreground/30 p-3 text-primary-foreground transition-colors hover:bg-primary-foreground/10" data-testid="button-service-close"><X size={20} /></button><div className="grid max-h-[88vh] w-full max-w-[920px] overflow-auto bg-background md:grid-cols-[.9fr_1.1fr]" onClick={(event) => event.stopPropagation()}><div className="min-h-[260px] md:min-h-[520px]"><SmartImage src={activeService.image} alt={activeService.alt} className="h-full w-full object-cover" /></div><div className="flex flex-col justify-center p-7 md:p-12"><p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-accent">{activeService.number} · {activeService.note}</p><h2 id="service-dialog-title" className="mt-5 font-display text-5xl leading-none text-primary md:text-7xl">{activeService.title}</h2><p className="mt-7 max-w-[420px] text-sm leading-7 text-muted-foreground">{activeService.text}</p><p className="mt-5 max-w-[420px] text-xs leading-6 text-muted-foreground">Proposed demo category. Please confirm current services, availability and details directly with IQRASH Beauty Salon.</p><a href={serviceInquiryHref(activeService.title)} target="_blank" rel="noreferrer" className="mt-9 inline-flex w-fit items-center gap-3 bg-primary px-5 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-accent hover:text-primary" data-testid="link-service-inquiry">Inquire about this service <ArrowUpRight size={15} /></a></div></div></div>}
       {activeImage && <div className="fixed inset-0 z-[60] flex items-center justify-center bg-primary/95 p-5 md:p-10" role="dialog" aria-modal="true" aria-label="Gallery image viewer" onClick={() => setActiveImage(null)}><button type="button" onClick={() => setActiveImage(null)} aria-label="Close image viewer" className="absolute right-5 top-5 rounded-full border border-primary-foreground/30 p-3 text-primary-foreground transition-colors hover:bg-primary-foreground/10" data-testid="button-lightbox-close"><X size={20} /></button><button type="button" onClick={(event) => { event.stopPropagation(); openImage((activeIndex - 1 + site.images.length) % site.images.length); }} aria-label="Previous image" className="absolute left-3 top-1/2 rounded-full border border-primary-foreground/30 p-3 text-primary-foreground transition-colors hover:bg-primary-foreground/10 md:left-8" data-testid="button-lightbox-previous"><ChevronLeft size={20} /></button><div className="max-h-[85vh] max-w-[min(85vw,900px)]" onClick={(event) => event.stopPropagation()}><SmartImage src={activeImage.src} alt={activeImage.alt} className="max-h-[78vh] w-auto max-w-full object-contain" /><div className="mt-4 flex items-start justify-between gap-5 text-primary-foreground"><div><p className="font-display text-2xl">{activeImage.title}</p><p className="mt-1 font-mono-ui text-[9px] uppercase tracking-[0.14em] text-primary-foreground/55">{activeImage.category} · {activeIndex + 1} / {site.images.length}</p></div><button type="button" onClick={(event) => { event.stopPropagation(); openImage((activeIndex + 1) % site.images.length); }} aria-label="Next image" className="border border-primary-foreground/30 p-3 transition-colors hover:bg-primary-foreground/10" data-testid="button-lightbox-next"><ChevronRight size={18} /></button></div></div></div>}
     </main>
   );

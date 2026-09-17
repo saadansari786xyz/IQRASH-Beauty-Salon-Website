@@ -1,0 +1,233 @@
+# UPDATE IQRASH BEAUTY SALON WEBSITE — GOOGLE MAPS & PROFESSIONAL SERVICES
+
+You are continuing the existing IQRASH Beauty Salon website project. Do not rebuild the website from scratch. Improve the current website by implementing the following updates with a premium, polished, responsive design.
+
+## 1. GOOGLE MAPS — MUST BE FULLY FUNCTIONAL
+
+Add a professional Google Maps section near the bottom of the homepage, above the footer.
+
+### Business details
+
+Business name: IQRASH Beauty Salon
+
+Address:
+E, Bungalow #157/A, Block-E, Unit 6, Latifabad Road, Sector Latifabad, Hyderabad, 71800, Pakistan
+
+Phone: 03329990159
+
+Google Maps location:
+https://maps.app.goo.gl/E7mPnb3njFCTEryM8
+
+### Google Maps embed
+
+Use the following exact Google Maps iframe in the website:
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14420.4770183497!2d68.3287938554199!3d25.367319400000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x394c713a6165a977%3A0xe97064bd8c82dc9e!2sIQRASH%20Beauty%20Salon!5e0!3m2!1sen!2s!4v1789651537658!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+### Map section design
+
+Create a beautiful split layout:
+
+Left side:
+
+* Small eyebrow: FIND US
+* Heading: VISIT IQRASH BEAUTY SALON
+* Short elegant description about visiting the salon.
+* Complete address.
+* Clickable phone number.
+* Opening hours field, clearly editable until confirmed.
+* Button: GET DIRECTIONS
+* Button: BOOK VIA WHATSAPP
+
+Right side:
+
+* Responsive embedded Google Maps.
+* Rounded corners.
+* Professional border treatment.
+* Correct map aspect ratio.
+* No overflow on mobile or tablet.
+
+On mobile:
+
+* Stack the contact information above the map.
+* Make the map width 100%.
+* Ensure the map does not create horizontal scrolling.
+* Make buttons touch-friendly.
+
+The GET DIRECTIONS button must open the supplied Google Maps location link.
+
+The BOOK VIA WHATSAPP button must open WhatsApp using the salon's phone number.
+
+Do not use a fake map, static map image, or unrelated location.
+
+## 2. PROFESSIONAL SERVICES SECTION
+
+Improve the existing services section so it looks like a premium beauty salon website inspired by high-end editorial beauty websites.
+
+Section heading:
+BEAUTY, YOUR WAY.
+
+Supporting text:
+"Explore a curated selection of beauty experiences designed around your individual style."
+
+This is proposed demo copy and must remain editable.
+
+### Service categories
+
+Create six beautiful service cards with the following editable categories:
+
+1. Hair Styling
+2. Hair Color & Treatments
+3. Makeup
+4. Skin Care
+5. Bridal Beauty
+6. Nails & Beauty Care
+
+IMPORTANT:
+These are proposed service categories for the demo. Do not claim that IQRASH currently offers every category. Keep the service data in one editable file or data array so the salon's actual services can be substituted later.
+
+Do not add prices, package names, staff names, or specific treatments unless verified by the salon.
+
+### Service card design
+
+Every card must include:
+
+* Professional, relevant beauty image.
+* Service title.
+* One or two lines of elegant descriptive text.
+* Small category number such as 01, 02, 03.
+* Refined arrow icon.
+* Beautiful typography.
+* Consistent card height or balanced card composition.
+* Excellent spacing and alignment.
+
+Use a premium editorial layout rather than generic rectangular cards.
+
+Possible layout:
+
+* Desktop: asymmetric editorial grid or 3-column grid.
+* Tablet: 2-column grid.
+* Mobile: 1-column stack with beautiful spacing.
+
+### Service images — VERY IMPORTANT
+
+Use high-quality, relevant professional beauty photography for each service.
+
+Image direction:
+
+Hair Styling:
+Professional blowout, elegant haircut, hairstyling, or hairdresser working on hair.
+
+Hair Color & Treatments:
+Beautiful hair color detail, professional hair coloring, or glossy styled hair.
+
+Makeup:
+Professional makeup application, elegant beauty portrait, or makeup artist working.
+
+Skin Care:
+Premium facial skincare treatment, skincare consultation, or clean beauty treatment detail.
+
+Bridal Beauty:
+Elegant bridal makeup, bridal hairstyling, or refined bridal beauty editorial image.
+
+Nails & Beauty Care:
+Professional manicure, elegant nail styling, or beauty care close-up.
+
+### Image quality requirements
+
+* Use visually consistent premium beauty photography.
+* Images must be sharp, high-resolution, and professionally composed.
+* Avoid random unrelated stock images.
+* Avoid low-quality, blurry, distorted, or pixelated images.
+* Avoid excessive filters and unnatural AI-looking faces.
+* Avoid visible watermarks and unrelated brand logos.
+* Use properly licensed demo images.
+* Do not copy images from the reference salon website.
+* Do not present stock models as IQRASH customers or staff.
+* Add descriptive alt text to every image.
+* Use lazy loading for images below the fold.
+* Optimize images for fast loading.
+* Keep all image sources easy to replace later.
+
+If external image URLs are unreliable or broken, replace them with reliable properly licensed images or clearly marked demo placeholders. Never leave broken image icons on the website.
+
+## 3. SERVICE CARD HOVER ANIMATIONS
+
+Add refined, professional interactions.
+
+On desktop hover:
+
+* Image smoothly zooms slightly.
+* A subtle dark overlay appears.
+* Service title moves upward or becomes more prominent.
+* Arrow icon moves gently to the right.
+* Border or background transitions smoothly.
+* Use professional easing and duration.
+* Keep the effect subtle and premium.
+
+On mobile:
+
+* Do not depend on hover.
+* Cards must remain readable and tappable.
+* Any additional details should be accessible through a tap or an ordinary visible interaction.
+
+Respect prefers-reduced-motion.
+
+Do not use excessive bouncing, spinning, flashing, or distracting animations.
+
+## 4. SERVICE DETAILS INTERACTION
+
+When a service card is clicked, open a clean service detail modal or expandable panel.
+
+The detail view should include:
+
+* Large relevant image.
+* Service name.
+* Editable description.
+* Optional "Inquire About This Service" button.
+* Close button.
+* Accessible keyboard interaction.
+* Mobile-friendly layout.
+
+The inquiry button should open WhatsApp with a prefilled message such as:
+
+"Hello IQRASH Beauty Salon, I would like to inquire about your [SERVICE NAME]. Please share the available details and appointment timings. Thank you."
+
+Do not claim that a booking has been confirmed.
+
+## 5. DESIGN CONSISTENCY
+
+Make sure the new services and Google Maps sections match the existing IQRASH website.
+
+Maintain:
+
+* Original IQRASH logo.
+* Black, ivory, champagne gold, and restrained rose-red palette.
+* Elegant typography.
+* Premium beauty editorial photography.
+* Smooth scroll animations.
+* Responsive design.
+* Consistent buttons and spacing.
+* Clean and professional visual hierarchy.
+
+Do not redesign the website into a generic template.
+
+## 6. FINAL TESTING
+
+After implementing the changes:
+
+1. Run the website.
+2. Confirm the Google Maps iframe loads correctly.
+3. Confirm GET DIRECTIONS opens the correct Google Maps link.
+4. Confirm the WhatsApp button opens the correct number.
+5. Confirm all six service images load correctly.
+6. Confirm every service card hover effect works.
+7. Confirm service detail interactions work.
+8. Test the sections at 320px, 375px, 390px, 414px, 768px, 1024px, 1280px, and 1440px widths.
+9. Check for horizontal scrolling.
+10. Check that no text or image is clipped.
+11. Check that the mobile layout is polished.
+12. Remove all console errors.
+13. Ensure the website remains fast and visually professional.
+
+Do not stop after adding basic cards. Make the service section and Google Maps section look like they belong to a premium, custom-designed beauty salon website.
